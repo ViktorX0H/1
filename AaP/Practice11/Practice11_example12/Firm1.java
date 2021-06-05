@@ -44,7 +44,7 @@ public class Firm1 {
                     System.out.println("Дети => ");
                     for (int j = 0; j < sotr[i].reb.length; j++) {
                         sotr[i].reb[j]=new Rebenok();
-                        System.out.print("Введите имя "+(i+1)+" ребенка => ");
+                        System.out.print("Введите имя "+(j+1)+" ребенка => ");
                         sotr[i].reb[j].imaR = sc.nextLine();
                         System.out.print("Введите его возраст => ");
                         sotr[i].reb[j].vozrastR = sc.nextInt();
@@ -52,13 +52,12 @@ public class Firm1 {
                     }
                 }
             }
-            System.out.println("\nСотрудники фирмы \n фам \t имя \t отч \t должность");
+            System.out.println("\nСотрудники фирмы: \n фам \t имя \t отч \t должность");
             for (Sotrudnik s : sotr) {
-                System.out.print(s.fam+ "\t"+s.im + "\t"+ s.otch + "\t "+ s.doljnost);
+                System.out.print(s.fam+ " \t"+s.im + " \t"+ s.otch + " \t "+ s.doljnost);
                 System.out.println("\n Дети: ");
                 for (Rebenok r : s.reb)
-                    System.out.println("\t\t\t"+ r.imaR+ "\t\t"+ r.vozrastR);
-                System.out.println("");
+                    System.out.println("\t\t"+ r.imaR+ "\t\t"+ r.vozrastR);
             }
         }
 }

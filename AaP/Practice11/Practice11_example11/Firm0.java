@@ -34,7 +34,7 @@ public class Firm0 {
                 sotr[i].oklad=sc.nextInt();
                 sc.nextLine();
             }
-            System.out.println( "\n Сотрудники фирмы: \n фам \t имя \t отч +\t должность \tоклад");
+            System.out.println( "\n Сотрудники фирмы: \n фам \t имя \t отч \t должность \tоклад");
             for (int i = 0; i < sotr.length; i++) {
                 System.out.println(sotr[i].fam+ "\t"+sotr[i].im + "\t"+sotr[i].otch+ "\t "+sotr[i].doljnost + "\t\t"+sotr[i].oklad);
             }

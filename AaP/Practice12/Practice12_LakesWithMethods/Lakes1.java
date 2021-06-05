@@ -1,140 +1,170 @@
 package Practice12_LakesWithMethods;
 
 import java.util.Scanner;
-class Lake {
-    String name, location;
-    double ploshad;
-}
-public class Lakes1 {
-    static Scanner sc;
 
-    public static Lake[] LakesArr(int c){
-        Lake[] ozero = new Lake[c];
-        for (int i = 0; i < ozero.length; i++) {
-            ozero[i] = new Lake();
-            System.out.println("Название => ");
-            ozero[i].name = sc.nextLine();
-            System.out.println("Местоположение => ");
-            ozero[i].location = sc.nextLine();
-            System.out.println("Площадь=> ");
-            ozero[i].ploshad = sc.nextDouble();
+class Ozera {
+    String name,loc;
+    double square;
+}
+
+public class Lakes1 {
+    static Scanner sc = new Scanner(System.in, "cp1251");
+
+    public static Ozera[] setLakeArr(int k) {
+        Ozera lake[] = new Ozera[k];
+        System.out.println("Введите информацию об озерах: ");
+        for (int i = 0; i < lake.length; i++) {
+            lake[i] = new Ozera();
+            System.out.print("Название " + (i + 1) + "-го озера => ");
+            lake[i].name = sc.nextLine();
+            System.out.print("Площадь " + (i + 1) + "-го озера => ");
+            lake[i].square = sc.nextDouble();
+            System.out.print("Местоположение " + (i + 1) + "го озера => ");
+            lake[i].loc = sc.nextLine();
             sc.nextLine();
         }
-        return ozero;
+        return lake;
     }
 
-    private static void printInfoTeams(Lake[] ozero) {
-        for (int i = 0; i < ozero.length; i++) {
-            System.out.println("Название: " + ozero[i].name + "\t" + "Местоположение: " + ozero[i].location + "\t"+ "Площадь: " + ozero[i].ploshad);
+    public static void showArray(Ozera[] lk) {
+        for (int i = 0; i < lk.length; i++) {
+            System.out.println("Name " + lk[i].name +" Location "+lk[i].loc+
+                    " square " + lk[i].square + " сот кв. м");
         }
     }
-
-    public static int maxp(Lake[] ozero) {
-        int pmax = 0;
-        double max = ozero[pmax].ploshad;
-        for (int i = 0; i < ozero.length; i++)
-            if (ozero[i].ploshad > max) {
-                max = ozero[i].ploshad;
-                pmax = i;
-            }
-        return pmax;
+    public static void showLake(Ozera[] lk, int n) {
+        System.out.println("" + lk[n].name +"\t"+lk[n].loc+
+                "\t" + lk[n].square + "сот кв. м");
     }
 
-    public static void sortLake(Lake[] ozero) {
-        for (int i = 0; i < ozero.length - 1; i++)
-            for (int j = 0; j < ozero.length - i - 1; j++)
-                if (ozero[j].name.compareTo(ozero[i + 1].name) > 0) {
-                    Lake rab = ozero[j];
-                    ozero[j] = ozero[j + 1];
-                    ozero[j + 1] = rab;
+    public static int NomMax(Ozera[] lk) {
+        int nommax = 0;
+
+        double max = lk[nommax].square;
+        for (int i = 0; i < lk.length; i++)
+            if (lk[i].square > max) {
+                max = lk[i].square;
+                nommax = i;
+            }
+        return nommax;
+    }
+
+    public static void sortSquare(Ozera[] lk) {
+        for (int i = 0; i < lk.length - 1; i++)
+            for (int j = 0; j < lk.length - 1 - i; j++)
+                if (lk[j].square > lk[j + 1].square) {
+                    Ozera rab = lk[j];
+                    lk[j] = lk[i + 1];
+                    lk[j + 1] = rab;
                 }
     }
 
-    public static double SRpl(Lake[] ozero) {
+    public static void sortName(Ozera[] cntr) {
+        for (int i = 0; i < cntr.length - 1; i++)
+            for (int j = 0; j < cntr.length - i - 1; j++)
+                if (cntr[j].name.compareTo(cntr[i + 1].name) > 0) {
+                    Ozera rab = cntr[j];
+                    cntr[j] = cntr[j + 1];
+                    cntr[j + 1] = rab;
+                }
+    }
+
+    public static double avgSquare(Ozera[] cntr) {
         double s = 0;
-        for (int i = 0; i < ozero.length; i++) {
-            s += ozero[i].ploshad;
-        }
-        double sr = s / ozero.length;
+        for (int i = 0; i < cntr.length; i++)
+            s += cntr[i].square;
+        double sr = s / cntr.length;
         return sr;
     }
 
-    public static void printSR(Lake[] ozero, double avgWins) {
-        for (int i = 0; i < ozero.length; i++) {
-            if (ozero[i].ploshad > avgWins) {
-                printInfoTeams(ozero[i]);
-            }
+    public static Ozera[] Larger(Ozera cntr[]) {
+        double sred = avgSquare(cntr);
+        int kol = 0;
+        for (int i = 0; i < cntr.length; i++) {
+            if (cntr[i].square > sred)
+                ++kol;
         }
+        if (kol != 0) {
+            Ozera[] bigLake = new Ozera[kol];
+            int n = -1;
+            for (int i = 0; i < cntr.length; i++)
+                if (cntr[i].square > sred) {
+                    bigLake[++n] = cntr[i];
+                }
+            return bigLake;
+        } else return null;
     }
 
-    public static int findLake(Lake[] ozero, String searchName){
-        String nameSearch = sc.nextLine();
-        int searchIndex = -1;
-        for (int i = 0; i < ozero.length; i++) {
-            if (ozero[i].name.equals(nameSearch)) {
-                searchIndex = i;
-            }
-        }
-        return searchIndex;
-    }
-    public static void remake(Lake ozero) {
-        System.out.println("Какое поле хотите изменить");
-        System.out.println("name, location, place, ploshad");
-        String pole = sc.nextLine();
-        switch (pole) {
-            case "name": {
-                System.out.println("Введите новое имя");
-                String newName = sc.nextLine();
-                ozero.name = newName;
-                break;
-            }
-            case "location": {
-                System.out.println("Введите новый город");
-                String newCity = sc.nextLine();
-                ozero.location = newCity;
-                break;
-            }
-            case "ploshad": {
-                System.out.println("Введите новое количество побед");
-                double newWin = sc.nextDouble();
-                ozero.ploshad = (int) newWin;
-                break;
-            }
-        }
+    public static int findForName(Ozera cntr[], String name) {
+        int n = -1;
+        for (int i = 0; i < cntr.length; i++)
+            if (name.equals(cntr[i].name))
+                n = i;
+        if (n != -1) {
+            return n;
+        } else return 0;
     }
 
+    public static Ozera Changes(Ozera lk[], String answer, int nom) {
+        switch (answer) {
+            case "y":
+                System.out.println("В какое поле, name/square/location?");
+                String answer2 = sc.nextLine();
+                switch (answer2) {
+                    case "name":
+                        lk[nom].name = sc.nextLine();
+                        break;
+                    case "square":
+                        lk[nom].square = sc.nextDouble();
+                        break;
+                    case "location":
+                        lk[nom].loc = sc.nextLine();
+                        break;
+                }
+                break;
+            default:
+                return null;
+        }
+        return lk[nom];
+    }
     public static void main(String[] args) {
-        System.out.println("Co => ");
-        sc = new Scanner(System.in);
-        int count = sc.nextInt();
-        sc.nextLine();
-        Lake[] ozero = new Lake[count];
-        ozero = LakesArr(count);
-        printInfoTeams(ozero);
-        int Nommax = maxp(ozero);
-        System.out.println("Команда с самым большим количеством побед: ");
-        printInfoTeams(ozero[Nommax]);
-        sortLake(ozero);
-        System.out.println("\nОтсортированный список:");
-        printInfoTeams(ozero);
-        double AvgWins = SRpl(ozero);
-        System.out.println("Среднее значение: ");
-        System.out.println("SRpl =" + AvgWins);
-        System.out.println("\nКоманды, с количеством побед больше средней");
-        printSR(ozero, AvgWins);
-        System.out.println("Enter name");
-        String searchName = sc.nextLine();
-        int searchIndex = findLake(ozero, searchName);
-        if(searchIndex!=1){
-            System.out.println("Найдена команда => ");
-            printInfoTeams(ozero[searchIndex]);
-            remake(ozero[searchIndex]);
-            System.out.println("Отредактированная информация о команде:");
-            printInfoTeams(ozero[searchIndex]);
-        }
-        else{
-            System.out.println("Ничего не найдено");
-        }
-    }
+        Scanner sc = new Scanner(System.in, "cp1251");
+        System.out.print("Введите количество озер=> ");
+        int n = sc.nextInt();
+        Ozera country[] = setLakeArr(n);
 
+        System.out.println("\nХарактеристики озер:");
+        showArray(country);
+        int nommax = NomMax(country);
+        System.out.println("\nОзеро с максимальной площадью:");
+        showLake(country,nommax);
+
+        sortSquare(country);
+        System.out.println("\nОтсортированный список по площади:");
+        showArray(country);
+
+        sortName(country);
+        System.out.println("\nОтсортированный список по названиям:");
+        showArray(country);
+
+        System.out.println("Средняя площадь =" + avgSquare(country));
+
+        System.out.println("\nОзера, с площадью больше средней");
+        Ozera[] larger = Larger (country);
+        showArray(larger);
+
+        System.out.println("\nПОИСК СТРАНЫ \n Введите название озера => ");
+        sc.nextLine();
+        String sname = sc.nextLine();
+        int sfind = findForName(country, sname);
+        if (sfind != 0) {
+            System.out.println("Желаете внести изменения в одно из полей, y или n?");
+            String answer = sc.nextLine();
+            Changes(country, answer,sfind);
+            showLake(country,n);
+        } else {
+            System.out.println("Такого озера нет в списке!");
+        }
+
+    }
 }
